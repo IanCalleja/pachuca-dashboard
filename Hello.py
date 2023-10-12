@@ -1,4 +1,4 @@
-# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022)
+""" Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -10,21 +10,23 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-# limitations under the License.
+# limitations under the License."""
 
 import streamlit as st
+import pandas as pd
 from streamlit.logger import get_logger
+import nlu
 
 LOGGER = get_logger(__name__)
 
 
 def run():
     st.set_page_config(
-        page_title="Hello",
+        page_title="CF Pachuca",
         page_icon="👋",
     )
 
-    st.write("# Welcome to Streamlit! 👋")
+    st.write("Bienvenido a la app de Inteligencia deportiva del grupo pachuca👋")
 
     st.sidebar.success("Select a demo above.")
 
@@ -46,6 +48,22 @@ def run():
     """
     )
 
-
 if __name__ == "__main__":
     run()
+
+st.title('st.secrets')
+st.secrets['message']
+
+st.title('st.file_uploader')
+
+st.subheader('Input CSV')
+uploaded_file = st.file_uploader("Choose a file")
+
+if uploaded_file is not None:
+  df = pd.read_csv(uploaded_file)
+  st.subheader('DataFrame')
+  st.write(df)
+  st.subheader('Descriptive Statistics')
+  st.write(df.describe())
+else:
+  st.info('☝️ Upload a CSV file')
